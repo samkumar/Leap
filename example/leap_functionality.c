@@ -40,6 +40,11 @@ static int process_find_init(void) {
 		printk(KERN_INFO "Invalid process_name\n");
 		return -1;
 	}
+	if (strcmp(process_name, "") == 0) {
+		printk(KERN_INFO "Disabling remote I/O path\n");
+		set_process_id(0);
+		return 0;
+	}
 	while(pid == -1) {
 		pid = get_pid_for_process();
 		tried++;
